@@ -32,7 +32,7 @@
         methods: {
             search() {
                 if(this.query.length > 1) {
-                    axios.get('https://localhost:3000/api/users?q=' + this.query + '&token=' + this.token)
+                    axios.get('http://localhost:3000/api/users?q=' + this.query + '&token=' + this.token)
                         .then(response => {
                             this.users = response.data.users;
                             this.result = true;

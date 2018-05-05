@@ -6,7 +6,7 @@
 
             <div class="friend" v-for="user in users">
                 <img class="avatar" :src="'/images/users/' + user.avatar" alt="avatar" >
-                <h4 class="name">{{ user.first_name + ' ' + user.last_name }}</h4>
+                <h4><router-link class="name" :to="{ name: 'user', params: { id: user.id } }">{{ user.first_name + ' ' + user.last_name }}</router-link></h4>
                 <p class="position">{{ user.position }}</p>
                 <p class="email">{{ user.email }}</p>
 
@@ -61,7 +61,7 @@
         },
         methods: {
             search() {
-                    axios.get('https://localhost:3000/api/users?q=' + this.$route.query.query + '&token=' + this.token)
+                    axios.get('http://localhost:3000/api/users?q=' + this.$route.query.query + '&token=' + this.token)
                         .then(response => {
                             this.users = response.data.users;
                             // this.result = true;

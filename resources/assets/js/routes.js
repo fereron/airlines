@@ -12,11 +12,6 @@ export var router = new VueRouter({
             path: '/news',
             component: require('./components/News')
         },
-
-        {
-            path: '/olimp',
-            component: require('./components/Olimp')
-        },
         {
             path: '/dashboard',
             // name: 'dashboard',
@@ -36,10 +31,6 @@ export var router = new VueRouter({
                     path: '/friends',
                     name: 'friends',
                     component: require('./components/Friends')
-                },
-                {
-                    path: 'test',
-                    component: require('./components/Test')
                 },
                 {
                     path: 'search',

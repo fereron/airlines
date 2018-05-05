@@ -15,7 +15,7 @@
                 <h3>{{ user.profile.position }}</h3>
             </div>
 
-            <div class="add__friend">
+            <div class="add__friend" ref="add__friend">
                 <a href="javascript:void(0)" v-on:click="addToFriend">
                     <svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <path d="M25,4.38208008 C25,1.96577148 23.0341797,0 20.6179199,0 C19.3439941,0 18.1957031,0.546777344 17.3942871,1.4175293 C15.8022461,0.698583984 14.1022949,0.333300781 12.3333496,0.333300781 C5.53271484,0.333300781 0,5.86606445 0,12.6666504 C0,19.4672363 5.53271484,25 12.3333496,25 C19.1339844,25 24.6666992,19.4672852 24.6666992,12.6666504 C24.6666992,10.8976562 24.3014648,9.19775391 23.5824219,7.60566406 C24.4532227,6.80424805 25,5.65600586 25,4.38208008 Z M20.6179199,1.23334961 C22.3541504,1.23334961 23.7666992,2.64589844 23.7666992,4.38212891 C23.7666992,6.11835937 22.3541504,7.5309082 20.6179199,7.5309082 C18.8816895,7.5309082 17.4691406,6.11835937 17.4691406,4.38212891 C17.4691895,2.64584961 18.8816895,1.23334961 20.6179199,1.23334961 Z M12.3333496,23.7666504 C6.21279297,23.7666504 1.23334961,18.787207 1.23334961,12.6666504 C1.23334961,6.54609375 6.21279297,1.56665039 12.3333496,1.56665039 C13.8507813,1.56665039 15.3115234,1.86430664 16.6850586,2.45195312 C16.3979004,3.0347168 16.2358887,3.68974609 16.2358887,4.38212891 C16.2358887,6.7984375 18.2016602,8.76420898 20.6179688,8.76420898 C21.3103516,8.76420898 21.9653809,8.60214844 22.5481445,8.31503906 C23.1356934,9.68847656 23.4333496,11.1491699 23.4333496,12.6666992 C23.4333496,18.787207 18.4539063,23.7666504 12.3333496,23.7666504 Z" id="Shape"></path>
@@ -101,7 +101,8 @@
             }
         },
         mounted() {
-            this.getUser()
+            this.getUser();
+            this.checkStatus();
         },
         watch: {
             '$route'(to, from) {
@@ -110,22 +111,38 @@
         },
         methods: {
             getUser() {
-                axios.get('https://localhost:3000/api/user?user=' + this.$route.params.id + '&token=' + this.token)
-                    .then(response => {
+                axios.get('http://localhost:3000/api/user', {
+                    params: {
+                        user: this.$route.params.id,
+                        token: this.token,
+                    }
+                }).then(response => {
                         this.user = response.data;
                         this.$bar.finish()
                     })
             },
+            checkStatus() {
+
+                axios.get('http://localhost:3000/api/friend/checkStatus', {
+                    params: {
+                        id: this.$route.params.id,
+                        token: this.token,
+                    }
+                }).then(res => {
+                    console.log(res);
+                })
+            },
             addToFriend() {
 
-                axios.post('https://localhost:3000/api/friend/sendRequest?token=' + this.token, {
+                axios.post('http://localhost:3000/api/friend/sendRequest?token=' + this.token, {
                     id: this.user.id
                 }).then(res => {
+                    this.$refs.add__friend.remove();
+
                     this.$snotify.success('Заявка на добавление в друзья успешно отправлена', {
                         timeout: 2000,
                         position: 'centerBottom',
                     });
-                    console.log(res.data);
                 })
             }
 

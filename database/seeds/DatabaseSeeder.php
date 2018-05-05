@@ -19,31 +19,26 @@ class DatabaseSeeder extends Seeder
         Profile::truncate();
 
         User::create([
-            'first_name' => 'Even',
-            'last_name' => 'Soul',
-            'position' => $faker->jobTitle,
-            'email' => 'a@a.a',
+            'first_name' => 'Rufat',
+            'last_name' => 'Kadirov',
+            'position' => 'Developer',
+            'email' => 'fererone@gmail.com',
             'password' => bcrypt('123123'),
         ])->profile()->create([
-            'phone_number' => $faker->phoneNumber,
-            'address' => $faker->address,
-            'about' => $faker->text(200),
+            'phone_number' => '+99(450) 211-11-11',
+            'address' => 'National Aviation Academy',
+            'about' => $faker->realText(200),
         ]);
 
         User::create([
             'first_name' => 'Soul',
             'last_name' => 'Crash',
-            'position' => $faker->jobTitle,
+            'position' => 'Developer',
             'email' => 'even@mail.com',
             'password' => bcrypt('123123'),
         ]);
 
-        factory(User::class, 300)
-            ->create()
-            ->profile()->create([
-                'phone_number' => $faker->phoneNumber,
-                'address' => $faker->address,
-                'about' => $faker->text(200),
-            ]);
+        factory(User::class, 150)
+            ->create();
     }
 }

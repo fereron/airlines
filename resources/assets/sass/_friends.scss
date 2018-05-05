@@ -30,12 +30,15 @@
         vertical-align: middle;
         margin: 25px 0 20px 0;
       }
-      .name {
-        font-size: 22px;
-        color: #000000;
-        letter-spacing: 1.38px;
+      h4 {
         margin-bottom: 8px;
+        .name {
+          font-size: 22px;
+          color: #000000;
+          letter-spacing: 1.38px;
+        }
       }
+
       .position {
         font-weight: 400;
         font-size: 17px;

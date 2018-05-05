@@ -27,9 +27,24 @@ class UserController extends Controller
      */
     public function getUser(Request $request)
     {
+        if ($request->input('user')) {
+            $user = $this->user
+                ->with(['profile'])
+                ->find($request->input('user'));
+
+            $friendship_status = $user->checkFriendshipStatus(\Auth::id());
+
+//            pri($friendship_status);
+
+
+            return response()->json($this->user
+                ->with(['profile'])
+                ->find($request->input('user')), 200);
+        }
+
         return response()->json($this->user
             ->with(['profile'])
-            ->find($request->input('user') ?? $request->user()->id), 200);
+            ->find($request->user()->id), 200);
     }
 
     /**

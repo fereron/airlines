@@ -1,7 +1,6 @@
 <template>
     <div class="header-nav">
-    <nav class="navbar navbar-static-top">
-        <!--<div class="container">-->
+        <nav class="navbar navbar-static-top">
             <ul class="nav navbar-nav">
                 <li>
                     <router-link :to="{ name: 'home' }">Главная</router-link>
@@ -17,18 +16,18 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Форум</a></li>
                 <li><a href="#">Флот</a></li>
-                <li v-if="!auth.user.authenticated"><a @click.prevent="loginModal" href="javascript:void(0)">Войти</a></li>
+                <li v-if="!auth.user.authenticated"><a @click.prevent="loginModal" href="javascript:void(0)">Войти</a>
+                </li>
                 <li v-if="auth.user.authenticated">
                     <router-link :to="{ name: 'profile' }" :auth="auth">Профиль</router-link>
                 </li>
                 <li v-if="auth.user.authenticated">
-                    <a @click.prevent="logoutUser" href="javascript:void(0)" >Выйти</a>
+                    <a @click.prevent="logoutUser" href="javascript:void(0)">Выйти</a>
                 </li>
             </ul>
-        <!--</div>-->
-    </nav>
+        </nav>
 
-    <login-modal v-show="this.show_modal" @closeModal="closeModal"></login-modal>
+        <login-modal v-show="this.show_modal" @closeModal="closeModal"></login-modal>
 
         <div class="overlay" v-show="this.show_modal"></div>
     </div>
@@ -61,8 +60,7 @@
                 this.auth.logout();
             }
         },
-        created()
-        {
+        created() {
             // console.log(this.auth);
             // axios.get('/api/user').then(res => {
             //     console.log(res);

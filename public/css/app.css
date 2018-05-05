@@ -11773,6 +11773,14 @@ input[type="checkbox"]:checked + label:before {
   transform: rotate(45deg);
 }
 
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  background-color: white !important;
+  background-image: none !important;
+  color: black !important;
+}
+
 .snotifyToast {
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
@@ -13307,6 +13315,8 @@ section#profile__dashboard .content__wrapper .content .profile .right_column .co
   letter-spacing: 1px;
   font-weight: 400;
   margin-top: 12px;
+  word-wrap: break-word;
+  width: 100%;
 }
 
 section#profile__dashboard .content__wrapper .content .profile .right_column .contact__information .info .info__item input {
@@ -13436,11 +13446,14 @@ section#profile__dashboard .content__wrapper .content .friends__wrapper .friends
   margin: 25px 0 20px 0;
 }
 
-section#profile__dashboard .content__wrapper .content .friends__wrapper .friends .friend .name {
+section#profile__dashboard .content__wrapper .content .friends__wrapper .friends .friend h4 {
+  margin-bottom: 8px;
+}
+
+section#profile__dashboard .content__wrapper .content .friends__wrapper .friends .friend h4 .name {
   font-size: 22px;
   color: #000000;
   letter-spacing: 1.38px;
-  margin-bottom: 8px;
 }
 
 section#profile__dashboard .content__wrapper .content .friends__wrapper .friends .friend .position {

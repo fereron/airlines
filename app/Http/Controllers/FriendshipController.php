@@ -24,6 +24,14 @@ class FriendshipController extends Controller
         $this->user = $user;
     }
 
+    public function checkStatus(Request $request)
+    {
+        $status = $this->user->find($request->user()->id)
+            ->checkFriendshipStatus($request->input('id'));
+
+        return response()->json(['status' => $status], 200);
+    }
+
 
     /**
      * @param Request $request
@@ -51,9 +59,8 @@ class FriendshipController extends Controller
 
     public function acceptFriendRequest(Request $request)
     {
-        $user = $this->user->find($request->user()->id);
-
-        $friendship = $user->acceptFriendRequest($request->input('action_user_id'));
+        $friendship = $this->user->find($request->user()->id)
+            ->acceptFriendRequest($request->input('action_user_id'));
 
         if (!$friendship) {
             return response()->json(['error' => true], 200);

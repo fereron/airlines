@@ -61,7 +61,7 @@ class UserRepository extends Repository
             return response()->json(['error' => TRUE]);
         }
 
-        if ($user->avatar) {
+        if ($user->avatar && $user->avatar !== 'no-user.gif') {
             File::delete(public_path() . "/images/users/" . $user->avatar);
         }
 

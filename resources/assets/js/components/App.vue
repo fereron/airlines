@@ -1,9 +1,5 @@
 <template>
-    <!--<section class="header" style="background: url('/images/background-top.png'); background-size: cover;">-->
-        <!--<div class="container">-->
-            <router-view></router-view>
-        <!--</div>-->
-    <!--</section>-->
+    <router-view></router-view>
 </template>
 
 <script>

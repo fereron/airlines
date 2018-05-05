@@ -1,11 +1,12 @@
 <template>
     <div class="friends__wrapper">
-        <h1>Заявки в друзья</h1>
+        <h1 v-if="requests">Заявки в друзья</h1>
 
         <div class="friends">
             <div class="friend" v-for="user in request_users">
                 <img class="avatar" :src="'/images/users/' + user.action_user.avatar" alt="avatar">
-                <h4 class="name">{{ user.action_user.first_name + ' ' + user.action_user.last_name }}</h4>
+                <!--<h4><a class="name" href="javascript:void(0)">{{ user.action_user.first_name + ' ' + user.action_user.last_name }}</a></h4>-->
+                <h4><router-link class="name" :to="{ name: 'user', params: { id: user.action_user.id } }">{{ user.action_user.first_name + ' ' + user.action_user.last_name }}</router-link></h4>
                 <p class="position">{{ user.action_user.position }}</p>
                 <p class="email">{{ user.action_user.email }}</p>
 
@@ -49,7 +50,7 @@
         <div class="friends">
             <div class="friend">
                 <img class="avatar" src="/images/profile.jpg" alt="avatar">
-                <h4 class="name">Catherine Cole</h4>
+                <h4><a class="name" href="javascript:void(0)">Catherine Cole</a></h4>
                 <p class="position">Dispatcher</p>
                 <p class="email">fererone@gmail.com</p>
 
@@ -89,7 +90,7 @@
 
             <div class="friend">
                 <img class="avatar" src="/images/profile.jpg" alt="avatar">
-                <h4 class="name">Catherine Cole</h4>
+                <h4><a class="name" href="javascript:void(0)">Catherine Cole</a></h4>
                 <p class="position">Dispatcher</p>
                 <p class="email">fererone@gmail.com</p>
 
@@ -128,7 +129,7 @@
 
             <div class="friend">
                 <img class="avatar" src="/images/profile.jpg" alt="avatar">
-                <h4 class="name">Catherine Cole</h4>
+                <h4><a class="name" href="javascript:void(0)">Catherine Cole</a></h4>
                 <p class="position">Dispatcher</p>
                 <p class="email">fererone@gmail.com</p>
 
@@ -167,7 +168,7 @@
 
             <div class="friend">
                 <img class="avatar" src="/images/profile.jpg" alt="avatar">
-                <h4 class="name">Catherine Cole</h4>
+                <h4><a class="name" href="javascript:void(0)">Catherine Cole</a></h4>
                 <p class="position">Dispatcher</p>
                 <p class="email">fererone@gmail.com</p>
 
@@ -206,7 +207,7 @@
 
             <div class="friend">
                 <img class="avatar" src="/images/profile.jpg" alt="avatar">
-                <h4 class="name">Catherine Cole</h4>
+                <h4><a class="name" href="javascript:void(0)">Catherine Cole</a></h4>
                 <p class="position">Dispatcher</p>
                 <p class="email">fererone@gmail.com</p>
 
@@ -255,7 +256,8 @@
             return {
                 auth: auth,
                 token: localStorage.getItem('id_token'),
-                request_users: []
+                request_users: [],
+                requests: false,
             }
         },
         mounted() {
@@ -278,15 +280,18 @@
         },
         methods: {
             getFriendRequests() {
-                axios.get('https://localhost:3000/api/friends/requests?token=' + this.token).then(res => {
+                axios.get('http://localhost:3000/api/friends/requests?token=' + this.token).then(res => {
                     this.$bar.finish();
                     // console.log(res);
                     this.request_users = res.data.requests;
+                    if (this.request_users.length !== 0) {
+                        this.requests = true
+                    }
                 })
             },
 
             acceptFriendRequest(id) {
-                axios.post('https://localhost:3000/api/friend/accept?token=' + this.token, {
+                axios.post('http://localhost:3000/api/friend/accept?token=' + this.token, {
                     action_user_id: id
                 }).then(res => {
                     console.log(res);
@@ -298,8 +303,5 @@
 
             }
         },
-
-
-
     }
 </script>

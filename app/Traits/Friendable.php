@@ -29,10 +29,22 @@ trait Friendable {
     {
         return Friendship::query()
                 ->with('actionUser')
+                ->where('action_user_id', '!=', $this->id)
+                ->where('status', 0)
                 ->where('user_one', $this->id)
                 ->orWhere('user_two', $this->id)
-                ->where('action_user_id', '!=', $this->id)
                 ->get();
+    }
+
+    public function checkFriendshipStatus($friend_id)
+    {
+        $friendship = Friendship::query()
+            ->select(['status'])
+            ->where('user_one', min($this->id, $friend_id))
+            ->where('user_two', max($this->id, $friend_id))
+            ->first();
+
+        return $friendship ? $friendship->status : null;
     }
 
     /**
@@ -46,6 +58,10 @@ trait Friendable {
             ->get();
     }
 
+    /**
+     * @param $action_user_id
+     * @return bool
+     */
     public function acceptFriendRequest($action_user_id)
     {
         $friendship = Friendship::query()

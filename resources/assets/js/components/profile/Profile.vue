@@ -194,7 +194,7 @@
 
             showProfile() {
                 if (this.token !== null) {
-                    axios.get('https://localhost:3000/api/user?token=' + this.token)
+                    axios.get('http://localhost:3000/api/user?token=' + this.token)
                         .then(response => {
                             this.user = response.data;
                             this.$bar.finish()
@@ -205,7 +205,7 @@
             uploadName() {
                 this.inputs.name = !this.inputs.name;
 
-                axios.post('https://localhost:3000/api/user/update?token=' + this.token, {
+                axios.post('http://localhost:3000/api/user/update?token=' + this.token, {
                     first_name: this.user.first_name,
                     last_name: this.user.last_name
                 }).then((res) => {
@@ -214,25 +214,25 @@
             uploadPosition() {
                 this.inputs.position = !this.inputs.position;
 
-                axios.post('https://localhost:3000/api/user/update?token=' + this.token, {position: this.user.profile.position}).then((res) => {
+                axios.post('http://localhost:3000/api/user/update?token=' + this.token, {position: this.user.position}).then((res) => {
                 });
             },
             uploadEmail() {
                 this.inputs.email = !this.inputs.email;
 
-                axios.post('https://localhost:3000/api/user/update?token=' + this.token, {email: this.user.email}).then((res) => {
+                axios.post('http://localhost:3000/api/user/update?token=' + this.token, {email: this.user.email}).then((res) => {
                 });
             },
             uploadPhone() {
                 this.inputs.phone = !this.inputs.phone;
 
-                axios.post('https://localhost:3000/api/user/update?token=' + this.token, {phone_number: this.user.profile.phone_number}).then((res) => {
+                axios.post('http://localhost:3000/api/user/update?token=' + this.token, {phone_number: this.user.profile.phone_number}).then((res) => {
                 });
             },
             uploadAddress() {
                 this.inputs.address = !this.inputs.address;
 
-                axios.post('https://localhost:3000/api/user/update?token=' + this.token, {address: this.user.profile.address}).then((res) => {
+                axios.post('http://localhost:3000/api/user/update?token=' + this.token, {address: this.user.profile.address}).then((res) => {
                 });
             },
             showTextarea() {
@@ -249,7 +249,7 @@
             uploadAbout() {
                 this.inputs.about = !this.inputs.about;
 
-                axios.post('https://localhost:3000/api/user/update?token=' + this.token, {about: this.user.profile.about}).then((res) => {
+                axios.post('http://localhost:3000/api/user/update?token=' + this.token, {about: this.user.profile.about}).then((res) => {
                 });
             },
 

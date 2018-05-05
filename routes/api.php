@@ -5,11 +5,6 @@ use Illuminate\Routing\Router;
 
 /**@var Router $router */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-
 $router->post('/register', 'Auth\AuthController@register');
 $router->post('/login', 'Auth\AuthController@login');
 
@@ -21,6 +16,7 @@ $router->group(['middleware' => ['jwt.auth']], function (Router $router) {
     $router->post('/user/upload-image', 'UserController@uploadImage');
     $router->get('/users', 'UserController@search');
 
+    $router->get('/friend/checkStatus', 'FriendshipController@checkStatus');
 
     $router->post('/friend/sendRequest', 'FriendshipController@sendFriendship');
     $router->post('/friend/accept', 'FriendshipController@acceptFriendRequest');
